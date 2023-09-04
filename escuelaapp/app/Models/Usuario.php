@@ -12,8 +12,8 @@ class Usuario extends Authenticatable
     use HasApiTokens,HasFactory, Notifiable;
 
     protected $table = 'usuarios';
-    protected $primaryKey = 'id_usuario';
-    public $incrementing = true;
+    //protected $primaryKey = 'id_usuario';
+    //public $incrementing = true;
     //public $timestamps = true;
 
 
