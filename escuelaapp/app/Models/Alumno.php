@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rol extends Model
+class Alumno extends Model
 {
     use HasFactory;
 
-    protected $table = 'roles';
+    protected $table = "alumnos";
 
-    public function usuario()
+    public function nivel()
     {
-        return $this->hasMany(Usuario::class);
+        return $this->belongsTo(Nivel::class,'nivel_id','id');
     }
 }

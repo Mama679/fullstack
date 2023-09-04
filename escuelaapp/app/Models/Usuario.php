@@ -4,21 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Usuario extends Authenticatable
 {
-    use HasFactory,HasFactory, Notifiable;
+    use HasApiTokens,HasFactory, Notifiable;
 
     protected $table = 'usuarios';
     protected $primaryKey = 'id_usuario';
     public $incrementing = true;
     //public $timestamps = true;
 
-    const CREATED_AT = 'fecha_crea';
-    const UPDATED_AT = 'fecha_mod';
 
     protected $fillable = [
         'usernom',
@@ -44,4 +41,8 @@ class Usuario extends Authenticatable
     protected $casts = [
         
     ];
+
+    public function rol(){
+        return $this->belongsTo(Rol::class,'rol_id','id');
+    }
 }
