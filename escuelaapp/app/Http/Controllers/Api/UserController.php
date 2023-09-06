@@ -53,6 +53,7 @@ class UserController extends Controller
              return response()->json([
                 'status' => 1,
                 'mensaje'=> "Usuario Logueado.",
+                'data' =>$user,
                 'acces_token' => $token
              ]);
           }
