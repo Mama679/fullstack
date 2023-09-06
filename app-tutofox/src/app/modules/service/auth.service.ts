@@ -26,8 +26,8 @@ export class AuthService {
     private router:Router
   ) { }
 
-  login(usuario:string, clave:string){
+  login:Observable<Usuario>(usuario:string, clave:string){
     let url = URL_SERVICIO + "api/login";
-    return this.http.post();
+    //return this.http.post();
   }
 }
