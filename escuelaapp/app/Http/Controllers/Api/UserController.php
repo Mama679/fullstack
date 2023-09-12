@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Usuario;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -80,7 +81,7 @@ class UserController extends Controller
             'status' => 1,
             'mensaje'=> "Acerca del Perfil de usuario",
             'data' => auth()->user() 
-         ]);
+         ],Response::HTTP_OK);
     }
 
     public function logout()
