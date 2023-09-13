@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\AlumnoController;
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\{AlumnoController, UserController};
+//use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

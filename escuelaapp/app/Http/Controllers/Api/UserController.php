@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -32,7 +33,7 @@ class UserController extends Controller
         return response()->json([
             "status" => 1,
             "mensaje" => "Registro de usuario exitoso"
-        ],201);
+        ],Response::HTTP_CREATED);
     }
 
     public function login(Request $request)
@@ -54,14 +55,14 @@ class UserController extends Controller
                 'mensaje'=> "Usuario Logueado.",
                 'data' =>$user,
                 'acces_token' => $token
-             ]);
+             ],Response::HTTP_OK);
           }
           else
           {
             return response()->json([
                 'status' => 0,
                 'mensaje'=> "Password Incorrecto."
-            ],404);
+            ],Response::HTTP_FORBIDDEN);
           }
        }
        else
@@ -69,7 +70,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 0,
                 'mensaje'=> "Usuario Invalido."
-            ],404);
+            ],Response::HTTP_NOT_FOUND);
        }
     }
 
@@ -79,7 +80,7 @@ class UserController extends Controller
             'status' => 1,
             'mensaje'=> "Acerca del Perfil de usuario",
             'data' => auth()->user() 
-        ]);
+        ],Response::HTTP_OK);
     }
 
     public function logout()
@@ -88,15 +89,19 @@ class UserController extends Controller
         return response()->json([
             'status' => 1,
             'mensaje'=> "Cierre de sesion"
-         ]);
+         ],Response::HTTP_OK);
     }
 
     public function userList()
     {
-        $users = Usuario::all();
+        //$users = Usuario::all();
+        $users = Usuario::select("*")
+                         ->with("rol")
+                         ->get();
+
         return response()->json([
             'status' => 1,
             'data' => $users
-        ]);
+        ],Response::HTTP_OK);
     }
 }
