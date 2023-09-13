@@ -12,6 +12,7 @@ Route::group(['middleware' => ['auth:sanctum']],function(){
         //Rutas Auth
         Route::get('user-profile',[UserController::class,'userProfile']);
         Route::get('logout',[UserController::class,'logout']);
+        Route::get('userlist',[UserController::class,'userList']);
 
         //Rutas Alumnos
         Route::post('create-alumno',[AlumnoController::class,'createAlumno']);
