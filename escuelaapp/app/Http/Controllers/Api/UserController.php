@@ -104,4 +104,32 @@ class UserController extends Controller
             'data' => $users
         ],Response::HTTP_OK);
     }
+
+    public function userUpdate(Request $request, $id)
+    {
+        $user_id = auth()->user()->id;//Toquen de usuario logueado
+        if(Usuario::where(['id' => $id])->exists())
+        {
+            $usuario = Usuario::find($id);
+            $usuario->usernom = isset($request->usernom) ? $request->usernom: $usuario->usernom;
+            $usuario->nombres = isset($request->nombres) ? $request->nombres: $usuario->nombres;
+            $usuario->rol_id = isset($request->rol_id) ? $request->rol_id: $usuario->rol_id;
+            $usuario->email = isset($request->email) ? $request->email: $usuario->email;
+            $usuario->email = isset($request->password) ? Hash::make($request->password) : $usuario->password;
+            $usuario->save();
+            
+            return response()->json([
+                "status" => 1,
+                "mensaje" =>"Usuario modificado con exito.",
+                "data" => $usuario
+            ],Response::HTTP_OK);
+        }
+        else
+        {
+            return response()->json([
+                "status" => 0,
+                "mensaje" =>"Usuario no existe."
+            ],Response::HTTP_NO_CONTENT);
+        }
+    } 
 }
