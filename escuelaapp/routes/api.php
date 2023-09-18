@@ -8,9 +8,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('register',[UserController::class,'register']);
 Route::post('login',[UserController::class,'login']);
 
-Route::group(['middleware' => ['auth:sanctum']],function(){
+Route::group(['middleware' => ['auth:sanctum','role']],function(){
         //Rutas Auth
         Route::get('user-profile',[UserController::class,'userProfile']);
+        Route::put('user-update/{id}',[UserController::class,'userUpdate']);
         Route::get('logout',[UserController::class,'logout']);
         Route::get('userlist',[UserController::class,'userList']);
 
