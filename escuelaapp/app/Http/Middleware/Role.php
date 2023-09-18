@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class Role
 {
@@ -18,7 +19,10 @@ class Role
     {
         // si no está identificado no le dejamos acceder
         if(!auth()->check())
-            return redirect('login');
+            return response()->json([
+                "status" => 0,
+                "mensaje" =>"No esta Autenticado."
+            ],Response::HTTP_FORBIDDEN);
 
         
         //Obtenemos el usuario autenticado
@@ -28,6 +32,9 @@ class Role
             return $next($request);
         }
 
-        return redirect('login');
+        return response()->json([
+            "status" => 0,
+            "mensaje" =>"No tiene perfil Administrador."
+        ],Response::HTTP_FORBIDDEN);
     }
 }
