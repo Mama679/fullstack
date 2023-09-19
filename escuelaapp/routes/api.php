@@ -16,15 +16,15 @@ Route::group(['middleware' => ['auth:sanctum']],function(){
         Route::get('userlist',[UserController::class,'userList'])->middleware(['role']);
 
         //Rutas Alumnos
-        Route::post('create-alumno',[AlumnoController::class,'createAlumno']);
-        Route::get('list-alumno',[AlumnoController::class,'listAlumno']);
-        Route::get('show-alumno/{id}',[AlumnoController::class,'showAlumno']);
-        Route::put('update-alumno/{id}',[AlumnoController::class,'updateAlumno']);
-        Route::delete('delete-alumno/{id}',[AlumnoController::class,'deleteAlumno']);
+        Route::post('create-alumno',[AlumnoController::class,'createAlumno'])->middleware(['administrador']);
+        Route::get('list-alumno',[AlumnoController::class,'listAlumno'])->middleware(['administrador']);
+        Route::get('show-alumno/{id}',[AlumnoController::class,'showAlumno'])->middleware(['administrador']);
+        Route::put('update-alumno/{id}',[AlumnoController::class,'updateAlumno'])->middleware(['administrador']);
+        Route::delete('delete-alumno/{id}',[AlumnoController::class,'deleteAlumno'])->middleware(['administrador']);
 });
 
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/

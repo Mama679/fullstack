@@ -39,8 +39,8 @@ class AlumnoController extends Controller
 
     public function listAlumno()
     {
-        $alumnos = Alumno::all();
-
+        $alumnos = Alumno::with('nivel')->get();
+        
         return response()->json([
             "status" => 1,
             "mensaje" =>"Listado de Alummnos.",
@@ -50,13 +50,12 @@ class AlumnoController extends Controller
 
     public function showAlumno($id)
     {
-        $user_id = auth()->user()->id;
+        //$user_id = auth()->user()->id;
         if(Alumno::where(["id" => $id])->exists())
         {
-            $alumno = Alumno::find($id);
+            $alumno = Alumno::with('nivel')->find($id);
             return response()->json([
                 "status" => 1,
-                "usuario" =>$user_id,
                 "data" => $alumno
             ],200);
         }

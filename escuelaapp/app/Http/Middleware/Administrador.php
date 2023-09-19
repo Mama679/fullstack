@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class Role
+class Administrador
 {
     /**
      * Handle an incoming request.
@@ -19,22 +19,24 @@ class Role
     {
         // si no está identificado no le dejamos acceder
         if(!auth()->check())
+        {
             return response()->json([
                 "status" => 0,
                 "mensaje" =>"No esta Autenticado."
             ],Response::HTTP_FORBIDDEN);
-
-        
-        //Obtenemos el usuario autenticado
-        $user = auth()->user();
-        if($user->rol_id === 1 )
-        {
-            return $next($request);
         }
 
-        return response()->json([
+         //Obtenemos el usuario autenticado
+         $user = auth()->user();
+         if($user->rol_id === 1 || $user->rol_id === 2 )
+         {
+             return $next($request);
+         }
+            
+        
+         return response()->json([
             "status" => 0,
-            "mensaje" =>"No tiene perfil Super Administrador."
+            "mensaje" =>"No tiene perfil Super Administrador o Administrador."
         ],Response::HTTP_FORBIDDEN);
     }
 }
