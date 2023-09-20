@@ -27,21 +27,22 @@ export class LoginComponent implements OnInit {
   login() {
 
     const user = {username: this.username, password:this.password};
-    this.authService.login(user).subscribe((resp:any) =>{
-      console.log(resp);
+    this.authService.login(user).subscribe((resp:any) =>{      
+     
        if(!resp.error)
        {
           console.log(resp);
        }
        else
-       {
+       {           
           if(!resp.error.status)
           {
             console.log(resp.error.mensaje);           
           }
           else
           {
-            console.log(resp.error);
+            let resultado = JSON.stringify(resp.error.message);
+            console.log(resultado);
           }
          
        }
